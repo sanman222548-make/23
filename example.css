@@ -1,0 +1,29 @@
+body {
+    background-image: none;
+    background-color: #FFFCCC
+}
+
+h1 {
+    font-family: Helvetica;
+    color: #000099;
+    font-size: 16;
+}
+
+div {
+    background: yellow;
+    width: 500;
+    height: 300;
+    margin: 10;
+}
+
+li
+{
+    list-style: circle;
+}
+
+p
+{
+    color: #000099;
+    font-style: italic;
+    font-size: 20;
+}
