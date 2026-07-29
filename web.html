@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Bootstrap 5 Website</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script> -->
+    <style>
+        :root {
+            --primary: #2F6F6B;
+            /* deep teal, replaces Bootstrap blue */
+            --primary-dark: #1F4B48;
+            --accent: #E8A33D;
+            /* warm amber for highlights */
+            --bg: #c2e4d3;
+        }
+
+        body {
+            background: var(--bg);
+        }
+
+        /* ---------- Hero: gradient + subtle pattern instead of flat blue ---------- */
+        .p-5.bg-primary {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 60%, #3C8B85 100%) !important;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .p-5.bg-primary::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+            background-size: 22px 22px;
+            pointer-events: none;
+        }
+
+        .p-5.bg-primary h1 {
+            position: relative;
+            animation: fadeInUp 0.6s ease both;
+        }
+
+        .p-5.bg-primary p {
+            position: relative;
+            animation: fadeInUp 0.6s ease 0.15s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ---------- Navbar ---------- */
+        .navbar.bg-dark {
+            background: var(--primary-dark) !important;
+        }
+
+        .navbar-dark .navbar-nav .nav-link {
+            position: relative;
+            transition: color 0.2s ease;
+        }
+
+        .navbar-dark .navbar-nav .nav-link::after {
+            content: "";
+            position: absolute;
+            left: 1rem;
+            right: 1rem;
+            bottom: 2px;
+            height: 2px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.25s ease;
+        }
+
+        .navbar-dark .navbar-nav .nav-link:hover::after,
+        .navbar-dark .navbar-nav .nav-link.active::after {
+            transform: scaleX(1);
+        }
+
+        .navbar-dark .navbar-nav .nav-link.active {
+            color: #fff !important;
+            font-weight: 600;
+        }
+
+        /* ---------- Sidebar pills ---------- */
+        .nav-pills .nav-link {
+            border-radius: 8px;
+            transition: transform 0.15s ease, background 0.15s ease;
+        }
+
+        .nav-pills .nav-link:hover:not(.disabled) {
+            background: #E4EDEC;
+            transform: translateX(3px);
+        }
+
+        .nav-pills .nav-link.active {
+            background: var(--primary) !important;
+        }
+
+        /* ---------- Fake image placeholders: gradient + hover lift ---------- */
+        .fakeimg {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+            background: linear-gradient(135deg, var(--primary) 0%, #6BA8A3 100%);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            border-radius: 10px;
+            box-shadow: 0 6px 16px rgba(31, 75, 72, 0.18);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .fakeimg:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(31, 75, 72, 0.25);
+        }
+
+        /* ---------- Content reveal-on-scroll ---------- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h2 {
+            color: var(--primary-dark);
+        }
+
+        /* ---------- Skills section ---------- */
+        .skill-row {
+            margin-bottom: 1.1rem;
+        }
+
+        .skill-row .skill-label {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 500;
+            margin-bottom: 0.35rem;
+        }
+
+        .skill-row .skill-label span:last-child {
+            color: var(--muted, #6B7A8B);
+            font-weight: 400;
+            font-size: 0.85rem;
+        }
+
+        .progress {
+            height: 8px;
+            background: #E4EDEC;
+            border-radius: 999px;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+        }
+
+        .skill-badges .badge {
+            background: #E4EDEC;
+            color: var(--primary-dark);
+            font-weight: 500;
+            padding: 0.5em 0.85em;
+            margin: 0 0.4rem 0.4rem 0;
+            border-radius: 999px;
+        }
+
+        /* ---------- Education timeline ---------- */
+        .timeline-item {
+            position: relative;
+            padding-left: 1.75rem;
+            padding-bottom: 1.75rem;
+            border-left: 2px solid #DCE7E5;
+        }
+
+        .timeline-item:last-child {
+            border-left: 2px solid transparent;
+            padding-bottom: 0;
+        }
+
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: -7px;
+            top: 4px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 0 4px #FBEFDC;
+        }
+
+        .timeline-item .timeline-period {
+            font-size: 0.85rem;
+            color: var(--primary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .course-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: 0.6rem;
+        }
+
+        .course-list span {
+            background: #fff;
+            border: 1px solid #DCE7E5;
+            color: var(--primary-dark);
+            font-size: 0.82rem;
+            padding: 0.3em 0.7em;
+            border-radius: 999px;
+        }
+
+
+
+        /* ---------- Footer ---------- */
+        .bg-dark.text-white.text-center.mt-5 {
+            background: var(--primary-dark) !important;
+        }
+
+        /* ---------- Back-to-top button ---------- */
+        #backToTop {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: #1F2937;
+            border: none;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: transform 0.15s ease, opacity 0.2s ease;
+        }
+
+        #backToTop:hover {
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="p-5 bg-primary text-white text-center">
+        <h1 style="font-size: 45px; font-family: Garamond; letter-spacing: 5px;"><b> KUNG SUN </b></h1>
+        <p style="font-family: arial; letter-spacing: 2px;">WELCOM TO MY WEBSITE</p>
+    </div>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <div class="container-fluid justify-content-center">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#skills">Skills</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#education">Education</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#Contact">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-sm-4 reveal">
+                <h2>About Me</h2>
+                <h5> <img src="img/image.png" alt="" class="fakeimg"></h5>
+                <p>"Success is never achieved in just one step"</p>
+                <h3 class="mt-4">Some Links</h3>
+                <p>Lorem ipsum dolor sit ame.</p>
+                <ul class="nav nav-pills flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Active</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                </ul>
+                <hr class="d-sm-none">
+            </div>
+            <div class="col-sm-8">
+
+                <!-- ---------- Skills ---------- -->
+                <div class="reveal" id="skills">
+                    <h2>Skills</h2>
+                    <h5 class="text-muted mb-4">What I've been building up</h5>
+
+                    <div class="skill-row">
+                        <div class="skill-label">
+                            <span>Java &amp; OOP</span><span>Coursework + labs</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 65%"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-row">
+                        <div class="skill-label">
+                            <span>Database Systems (SQL / NoSQL)</span><span>Coursework</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 70%"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-row">
+                        <div class="skill-label">
+                            <span>Data Mining &amp; Machine Learning</span><span>Coursework</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 60%"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-row">
+                        <div class="skill-label">
+                            <span>Networking (MikroTik / MTCRE)</span><span>Self-study</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 55%"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-row">
+                        <div class="skill-label">
+                            <span>Business Intelligence &amp; Dashboards</span><span>Project work</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 65%"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-badges mt-4">
+                        <span class="badge">Excel Financial Modeling</span>
+                        <span class="badge">Business Planning</span>
+                        <span class="badge">Word/DOCX Reporting</span>
+                        <span class="badge">UX/UI Basics</span>
+                        <span class="badge">Thai Technical Writing</span>
+                    </div>
+                    <p class="small text-muted mt-2">Progress levels are a rough self-estimate — happy to update as
+                        things move forward.</p>
+                </div>
+
+                <!-- ---------- Education ---------- -->
+                <div class="reveal mt-5" id="education">
+                    <h2>Education</h2>
+                    <!-- <h5 class="text-muted mb-4">Currently studying</h5> -->
+
+                    <div class="timeline-item">
+                        <div class="timeline-period">University</div>
+                        <h5 class="mt-1 mb-1">Information Technology &amp; Business Management</h5>
+                        <p class="mb-0">University coursework spanning IT, business, and management — covering
+                            software development, data, networks, and organizational fundamentals.</p>
+                        <div class="course-list">
+                            <span>Data Mining / ML</span>
+                            <span>Database Systems</span>
+                            <span>Data Communication</span>
+                            <span>Internet Technology</span>
+                            <span>Business Intelligence</span>
+                            <span>Principles of Management</span>
+                            <span>Java / OOP</span>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-period">Secondary school level</div>
+                        <h5 class="mt-1 mb-1">Science-Mathematics Study Plan</h5>
+                        <p class="mb-0">Studied in the Science-Mathematics track and 
+                            began developing an interest in computers and basic programming.</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-period">Primary Level</div>
+                        <h5 class="mt-1 mb-1">Primary education</h5>
+                        <!-- <p class="mb-0">Studying toward the MikroTik Certified Routing Engineer (MTCRE) exam
+                            alongside coursework.</p> -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="reveal mt-5 p-4 bg-dark text-white text-center" id="Contact">
+        <font style="font-family:arial; letter-spacing: 1px;">
+            Contact
+        </font>
+        <br>
+        <font style="font-size: 15px;">
+            <a href="https://www.facebook.com/salman.pornmad.3">Facebook</a> |
+            <a href="https://www.instagram.com/s.suxn_/">IG</a><br> |
+            <a>Email : sanman222548@gmail.com</a>
+        </font>
+    </div>
+
+    <button id="backToTop" aria-label="Back to top">↑</button>
+
+    <script>
+        // Reveal sections as they scroll into view
+        const revealEls = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+        revealEls.forEach(el => observer.observe(el));
+
+        // Back-to-top button
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            backToTop.style.display = window.scrollY > 300 ? 'flex' : 'none';
+        });
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+
+</html>
